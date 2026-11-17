@@ -233,7 +233,24 @@
     .movie-card.is-seen::before { background: var(--green); }
     .movie-card.is-todo::before { background: var(--amber); }
     .movie-card.is-pick { border-color: var(--accent); background: linear-gradient(180deg, #1a1218, var(--surface)); }
-
+    .movie-card { transition: border-color .15s, transform .15s, box-shadow .15s; }
+    @media (hover: hover) {
+      .movie-card:not(.tmdb-card):hover,
+      .diary-card:hover {
+        border-color: var(--border-strong);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      .btn-red:hover { background: #ff1a26; }
+      .btn-green:hover { background: #38b450; }
+      .btn-blue:hover { background: #4d98ff; }
+      .btn-amber:hover { background: #e3a82a; }
+      .btn-outline:hover, .btn-reset:hover { background: var(--surface-3); border-color: var(--border-strong); }
+      .chip:hover { border-color: var(--border-strong); background: var(--surface-3); }
+      .role-tab:hover { background: var(--surface-3); color: var(--text); }
+      .nav-btn:hover { color: var(--text); }
+      .movie-jump-link:hover { border-color: var(--blue); }
+    }
     .tmdb-card { flex-direction: row; gap: 12px; align-items: flex-start; cursor: default; padding-left: 13px; }
     .tmdb-card::before { display: none; }
     .check-card { cursor: pointer; border-color: rgba(56, 139, 253, 0.38); }
