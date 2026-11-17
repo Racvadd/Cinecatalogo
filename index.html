@@ -1555,6 +1555,49 @@
       document.body.style.overflow = '';
     }
 
+    function renderConnessioniDettaglio(row, shuffle) {
+      const m = rowMap[row];
+      const box = $('detConnsList');
+      if (!m || !box) return;
+
+      let conns = getConnessioniFilm(m).slice();
+      if (shuffle) conns.sort(() => Math.random() - 0.5);
+
+      const MAX_CONNS = 5;
+      const MAX_MOVIES = 5;
+      const visibleConns = conns.slice(0, MAX_CONNS);
+
+      box.innerHTML = visibleConns.map(c => {
+        let movies = c.movies.slice();
+        if (shuffle && movies.length > MAX_MOVIES) {
+          movies.sort(() => Math.random() - 0.5);
+        }
+        const shownMovies = movies.slice(0, MAX_MOVIES);
+        const extraMovies = movies.length - shownMovies.length;
+
+        const movieButtons = shownMovies.map(mv => {
+          const seen = rowMap[mv.row]?.visto;
+          return `<span class="movie-jump-link" role="button" tabindex="0" onclick="apriDettaglioFilm(${mv.row})">${seen ? '✓' : '📌'} ${esc(mv.title)} (${esc(mv.year)})</span>`;
+        }).join('');
+
+        const moreBtn = extraMovies > 0
+          ? `<span class="movie-jump-link" style="color:var(--cyan); border-color:rgba(56,139,253,0.4);" role="button" tabindex="0" onclick="saltaAdArchivioPersona(${jsArg(c.roleKey)}, ${jsArg(c.person)})">+ altri ${extraMovies} →</span>`
+          : '';
+
+        return `
+          <div class="conn-detail-item">
+            <div class="conn-detail-head">
+              <span class="conn-role-tag">${esc(c.roleLabel)}</span>
+              <span class="person-link" style="font-weight:700;" role="button" tabindex="0" onclick="saltaAdArchivioPersona(${jsArg(c.roleKey)}, ${jsArg(c.person)})">${esc(c.person)}</span>
+            </div>
+            <div>${movieButtons}${moreBtn}</div>
+          </div>
+        `;
+      }).join('') + (conns.length > MAX_CONNS
+        ? `<div class="conn-more" style="margin-top:8px;">Mostrate ${MAX_CONNS} di ${conns.length} persone/studi in comune • tocca 🎲 Mescola per ruotarle</div>`
+        : '');
+    }
+
     async function apriDettaglioFilm(row, refresh) {
       const m = rowMap[row];
       if (!m) return;
@@ -1583,17 +1626,15 @@
       };
 
       const conns = getConnessioniFilm(m);
-      let connsDetailHtml = '';
-      if (conns.length > 0) {
-        connsDetailHtml = `<div class="detail-box full mb accent"><div class="d-label cyan">🔗 Connessioni nel tuo Catalogo (${conns.length})</div>` +
-          conns.map(c => {
-            const movieButtons = c.movies.map(mv => {
-              const seen = rowMap[mv.row]?.visto;
-              return `<span class="movie-jump-link" role="button" tabindex="0" onclick="apriDettaglioFilm(${mv.row})">${seen ? '✓' : '📌'} ${esc(mv.title)} (${esc(mv.year)})</span>`;
-            }).join('');
-            return `<div class="conn-detail-item"><div class="conn-detail-head"><span class="conn-role-tag">${esc(c.roleLabel)}</span><span class="person-link" style="font-weight:700;" role="button" tabindex="0" onclick="saltaAdArchivioPersona(${jsArg(c.roleKey)}, ${jsArg(c.person)})">${esc(c.person)}</span></div><div>${movieButtons}</div></div>`;
-          }).join('') + '</div>';
-      }
+      const connsDetailHtml = conns.length > 0 ? `
+        <div class="detail-box full mb accent">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px;">
+            <div class="d-label cyan" style="margin:0;">🔗 Connessioni nel tuo Catalogo (${conns.length})</div>
+            <button class="btn btn-outline sm" style="min-height:28px; padding:2px 9px; font-size:0.75rem;" onclick="renderConnessioniDettaglio(${m.row}, true)">🎲 Mescola</button>
+          </div>
+          <div id="detConnsList"></div>
+        </div>
+      ` : '';
 
       const trailerUrl = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(`${m.title} ${m.year} trailer`);
       const numVisioni = m.dateVisione ? m.dateVisione.split(',').map(d => d.trim()).filter(Boolean).length : 0;
@@ -1618,7 +1659,10 @@
           </div>
         </div></div>
         <div class="detail-content">
-          <div class="link-row" id="detLinks"><a class="btn btn-outline sm" href="${esc(trailerUrl)}" target="_blank" rel="noopener">▶️ Cerca trailer</a><button class="btn btn-outline sm" onclick="modificaNotaPrompt(${m.row}, event)">📝 Nota Personale</button></div>
+          <div class="link-row" id="detLinks" style="flex-wrap:nowrap;">
+            <a class="btn btn-outline sm grow" href="${esc(trailerUrl)}" target="_blank" rel="noopener">▶️ Trailer</a>
+            <button class="btn btn-outline sm grow" onclick="modificaNotaPrompt(${m.row}, event)">📝 Nota</button>
+          </div>
           ${m.manualNote ? `<div class="detail-box full mb"><div class="d-label">📝 Note & Curiosità</div><div class="d-val">${esc(m.manualNote)}</div></div>` : ''}
           ${connsDetailHtml}
           <div class="detail-box full mb"><div class="d-label">📖 Sinossi (TMDB)</div><div class="d-val" id="detOverview"><span class="d-muted">⏳ Caricamento trama, voti e incassi...</span></div></div>
@@ -1636,6 +1680,8 @@
         </div>
       `;
 
+      if (conns.length > 0) renderConnessioniDettaglio(m.row, false);
+
       try {
         const extra = await apiCall('dettagliExtra', { title: m.title, orig: m.original_title, year: m.year, tmdbId: m.tmdbId });
         if (!$('detOverview') || !rowMap[row]) return;
@@ -1648,7 +1694,7 @@
         $('detOverview').innerText = extra.overview || 'Nessuna trama disponibile.';
 
         if (extra.tmdbId) {
-          $('detLinks').insertAdjacentHTML('beforeend', `<a class="btn btn-outline sm" href="https://www.themoviedb.org/movie/${Number(extra.tmdbId)}" target="_blank" rel="noopener">🎞️ Apri su TMDB</a>`);
+          $('detLinks').insertAdjacentHTML('beforeend', `<a class="btn btn-outline sm grow" href="https://www.themoviedb.org/movie/${Number(extra.tmdbId)}" target="_blank" rel="noopener">🎞️ TMDB</a>`);
         }
         const kpis = $('detKPIs');
         if (extra.voteAverage && Number(extra.voteAverage) > 0) {
