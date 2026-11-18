@@ -1988,14 +1988,21 @@
     function popolaSelettoreAnni(anni) {
       const sel = $('diaryYear');
       const valAttuale = sel.value;
+      const primoPopolamento = sel.options.length <= 1;
       sel.innerHTML = '<option value="all">Tutti gli anni</option>' + anni.map(a => `<option value="${a}">${a}</option>`).join('');
-      if (anni.includes(valAttuale)) sel.value = valAttuale;
-      else if (valAttuale === 'all' && anni.length > 0) sel.value = anni[0];
+
+      if (anni.includes(valAttuale)) {
+        sel.value = valAttuale;
+      } else if (valAttuale === 'all' && primoPopolamento && anni.length > 0) {
+        sel.value = anni[0];
+      } else {
+        sel.value = 'all';
+      }
     }
 
     function renderDiario() {
       const d = calcolaDatiDiario();
-      if (d.anni.length > 0 && $('diaryYear').options.length <= 1) popolaSelettoreAnni(d.anni);
+      popolaSelettoreAnni(d.anni);
 
       const selAnno = $('diaryYear').value;
       const filtered = selAnno === 'all' ? d.visioni : d.visioni.filter(v => v.anno === selAnno);
