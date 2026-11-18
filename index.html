@@ -123,12 +123,15 @@
       background: var(--accent); border-radius: 0 0 4px 4px;
     }
 
-    /* CONTENITORI & FORM */
+    /* CONTENITORI & UTILITÀ */
     .container { padding: 14px; max-width: 700px; margin: 0 auto; }
     .banner-wrap { padding-bottom: 0; }
     .row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: stretch; }
     .row:last-child, .row.tight { margin-bottom: 0; }
     .row.nowrap { flex-wrap: nowrap; }
+    .mt-10 { margin-top: 10px; }
+    .mb-12 { margin-bottom: 12px; }
+    .stack-8 > * + * { margin-top: 8px; }
 
     .panel {
       background: var(--surface); border: 1px solid var(--border);
@@ -158,7 +161,7 @@
     .input-box:focus { background: rgba(255, 255, 255, 0.12); border-color: var(--blue); }
     .input-box.block { width: 100%; flex: none; }
     .input-box.sm { min-height: 38px; padding: 6px 11px; font-size: var(--fs-base); }
-    .textarea { resize: vertical; min-height: 100px; line-height: 1.45; }
+    .textarea { resize: vertical; min-height: 92px; line-height: 1.45; }
 
     select.input-box {
       flex: 1 1 140px; appearance: none; -webkit-appearance: none;
@@ -174,10 +177,12 @@
       font-size: var(--fs-base); font-weight: 600; line-height: 1.2;
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
       white-space: nowrap; cursor: pointer; user-select: none; text-decoration: none;
+      transition: background .15s, border-color .15s, transform .1s, opacity .15s;
     }
     .btn:active { transform: scale(0.97); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
     .btn.sm { min-height: 36px; padding: 6px 11px; font-size: var(--fs-sm); border-radius: 9px; }
+    .btn.xs { min-height: 28px; padding: 2px 9px; font-size: var(--fs-xs); border-radius: 7px; }
     .btn.grow { flex: 1; }
     .btn.block { width: 100%; }
     .btn-red { background: var(--accent); color: #fff; }
@@ -210,7 +215,6 @@
     .st-ok { color: var(--green-text); }
     .st-ko { color: var(--danger-text); }
     .st-off { color: var(--muted); }
-    .stack-8 > * + * { margin-top: 8px; }
 
     /* LISTE E CARD COMPATTE */
     #tmdbResults, #watchlistBox, #archiveBox, #aiResults, #batchResults { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -228,12 +232,13 @@
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-lg); padding: 12px 13px 11px 16px;
       cursor: pointer; display: flex; flex-direction: column; gap: 4px;
+      transition: border-color .15s, transform .15s, box-shadow .15s;
     }
     .movie-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--border-strong); }
     .movie-card.is-seen::before { background: var(--green); }
     .movie-card.is-todo::before { background: var(--amber); }
     .movie-card.is-pick { border-color: var(--accent); background: linear-gradient(180deg, #1a1218, var(--surface)); }
-    .movie-card { transition: border-color .15s, transform .15s, box-shadow .15s; }
+
     @media (hover: hover) {
       .movie-card:not(.tmdb-card):hover,
       .diary-card:hover {
@@ -251,6 +256,7 @@
       .nav-btn:hover { color: var(--text); }
       .movie-jump-link:hover { border-color: var(--blue); }
     }
+
     .tmdb-card { flex-direction: row; gap: 12px; align-items: flex-start; cursor: default; padding-left: 13px; }
     .tmdb-card::before { display: none; }
     .check-card { cursor: pointer; border-color: rgba(56, 139, 253, 0.38); }
@@ -319,6 +325,7 @@
       background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--green);
       border-radius: var(--radius); padding: 10px 13px; cursor: pointer;
       display: flex; justify-content: space-between; align-items: center; gap: 10px;
+      transition: border-color .15s, transform .15s, box-shadow .15s;
     }
     .diary-date { font-size: var(--fs-xs); font-weight: 700; color: var(--cyan); white-space: nowrap; }
 
@@ -401,15 +408,15 @@
     .detail-KPIs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
     .kpi-pill { background: var(--surface-2); border: 1px solid var(--border); padding: 3px 9px; border-radius: 7px; font-size: var(--fs-xs); color: var(--text); }
     .kpi-pill.rating { border-color: var(--amber); color: var(--amber-text); }
-    
 
     .detail-content { max-width: 820px; margin: 0 auto; padding: 14px; }
-    .link-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .link-row { display: flex; flex-wrap: nowrap; gap: 8px; margin-bottom: 12px; }
     .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 12px; }
     .detail-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 13px; min-width: 0; }
     .detail-box.full { grid-column: 1 / -1; }
     .detail-box.mb { margin-bottom: 10px; }
     .detail-box.accent { border-color: rgba(56, 139, 253, 0.4); }
+    .d-box-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
     .d-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 5px; font-weight: 700; }
     .d-label.cyan { color: var(--cyan); }
     .d-val { font-size: var(--fs-sm); color: var(--text); line-height: 1.5; overflow-wrap: anywhere; }
@@ -522,7 +529,7 @@
         <div id="modeBatch" class="toggle-pill" role="button" tabindex="0" onclick="setAddMode('batch')">📝 Incolla Lista</div>
       </div>
 
-      <div id="addSingleWrap" style="margin-top: 10px;">
+      <div id="addSingleWrap" class="mt-10">
         <div class="row nowrap">
           <input type="text" id="searchInput" class="input-box" placeholder="Titolo o Titolo + Anno..." enterkeyhint="search" autocomplete="off" onkeydown="if(event.key==='Enter') cercaTMDB()">
           <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="scattaLocandina(event)">
@@ -537,9 +544,9 @@
         <input type="text" id="noteInput" class="input-box block sm" placeholder="Nota personale opzionale (es. Visto in Sala Energia...)">
       </div>
 
-      <div id="addBatchWrap" class="hidden" style="margin-top: 10px;">
+      <div id="addBatchWrap" class="hidden mt-10">
         <textarea id="batchInput" class="input-box block textarea" placeholder="Incolla qui i titoli (uno per riga)...&#10;Es:&#10;Alien 1979&#10;The Thing&#10;In the mouth of madness"></textarea>
-        <button class="btn btn-blue block" style="margin-top: 10px;" onclick="analizzaBatch()">🔍 Trova su TMDB</button>
+        <button class="btn btn-blue block mt-10" onclick="analizzaBatch()">🔍 Trova su TMDB</button>
       </div>
     </div>
 
@@ -623,7 +630,7 @@
       </div>
       <button class="btn btn-outline block sm" onclick="$('diaryStats').classList.toggle('hidden')">📊 Mostra/Nascondi Statistiche (Cine-Wrapped)</button>
 
-      <div id="diaryStats" class="hidden" style="margin-top: 12px;">
+      <div id="diaryStats" class="hidden mt-10">
         <div class="detail-grid" style="margin-bottom:0;">
           <div class="detail-box"><div class="d-label cyan">Totale Visioni</div><div class="d-val" id="stCount">-</div></div>
           <div class="detail-box"><div class="d-label cyan">Tempo Totale</div><div class="d-val" id="stTime">-</div></div>
@@ -644,7 +651,7 @@
   <div class="container hidden" id="tab-ai">
     <div class="panel">
       <div class="panel-header"><span>✨ Chiedi all'IA (Gemini)</span></div>
-      <textarea id="aiPrompt" class="input-box block textarea" style="min-height:76px; margin-bottom:10px;" placeholder="Es. Un horror claustrofobico anni '80 con effetti pratici..."></textarea>
+      <textarea id="aiPrompt" class="input-box block textarea mb-12" placeholder="Es. Un horror claustrofobico anni '80 con effetti pratici..."></textarea>
 
       <div class="field-label"><b>Elementi di ispirazione (opzionale):</b></div>
       <div class="role-tabs">
@@ -661,7 +668,7 @@
 
       <div id="aiActiveCrewBar" class="active-filters-bar hidden"></div>
 
-      <div class="row tight nowrap" style="margin-top: 10px;">
+      <div class="row tight nowrap mt-10">
         <button class="btn btn-red grow" id="btnChiediAI" onclick="eseguiRichiestaAI()">✨ Genera Consigli</button>
         <button class="btn btn-reset btn-icon" title="Reset" onclick="resetTabAI()">↺</button>
       </div>
@@ -736,10 +743,10 @@
       <p class="panel-hint">Questi dati restano salvati esclusivamente nella memoria locale del tuo browser.</p>
 
       <div class="field-label"><b>URL Web App (/exec):</b></div>
-      <input type="url" id="inputApiUrl" class="input-box block sm" style="margin-bottom:12px;" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off">
+      <input type="url" id="inputApiUrl" class="input-box block sm mb-12" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off">
 
       <div class="field-label"><b>Token Segreto API:</b></div>
-      <input type="password" id="inputApiToken" class="input-box block sm" style="margin-bottom:14px;" placeholder="Inserisci il token impostato in codice.gs" autocomplete="off">
+      <input type="password" id="inputApiToken" class="input-box block sm mb-12" placeholder="Inserisci il token impostato in codice.gs" autocomplete="off">
 
       <button class="btn btn-blue block" onclick="salvaConnessioneLocale()">🔌 Salva Connessione e Sincronizza</button>
     </div>
@@ -749,18 +756,17 @@
       <p class="panel-hint">Inviate al tuo foglio Google e salvate in ScriptProperties.</p>
 
       <div class="field-label"><b>TMDB API Key:</b> <span id="statusTmdb"></span></div>
-      <input type="text" id="inputTmdbKey" class="input-box block sm" style="margin-bottom:12px;" placeholder="Nuova chiave TMDB (lascia vuoto per non cambiare)" autocomplete="off">
+      <input type="text" id="inputTmdbKey" class="input-box block sm mb-12" placeholder="Nuova chiave TMDB (lascia vuoto per non cambiare)" autocomplete="off">
 
       <div class="field-label"><b>Gemini API Key:</b> <span id="statusGemini"></span></div>
-      <input type="text" id="inputGeminiKey" class="input-box block sm" style="margin-bottom:14px;" placeholder="Nuova chiave Gemini (lascia vuoto per non cambiare)" autocomplete="off">
+      <input type="text" id="inputGeminiKey" class="input-box block sm mb-12" placeholder="Nuova chiave Gemini (lascia vuoto per non cambiare)" autocomplete="off">
 
       <button class="btn btn-green block" onclick="salvaConfigurazione()">💾 Salva Chiavi su Google</button>
     </div>
 
     <div class="panel">
-      <h3 class="panel-title" style="margin-bottom:10px;">🛠️ Struttura & Sincronizzazione Foglio</h3>
+      <h3 class="panel-title mb-12">🛠️ Manutenzione Foglio Google</h3>
       <div class="stack-8">
-        <button class="btn btn-amber block" onclick="eseguiMigrazioneDaApp(this)">🛠️ Migra/Allinea Colonna Effetti Speciali</button>
         <button class="btn btn-outline block" onclick="ricalcolaConnessioniDaApp()">🔗 Ricalcola Connessioni su tutto il Foglio</button>
         <button class="btn btn-outline block" onclick="riparaFoglioDaApp()">🔧 Ripristina Checkbox e Colori sul Foglio</button>
       </div>
@@ -796,7 +802,7 @@
   </nav>
 
   <!-- DIALOG NOTA -->
-  <div id="noteDialog" class="dialog-overlay hidden" onclick="if(event.target===this) chiudiNotaDialog()">
+  <div id="noteDialog" class="dialog-overlay hidden" onmousedown="if(event.target===this) chiudiNotaDialog()">
     <div class="dialog" role="dialog" aria-modal="true">
       <div class="dialog-title">📝 Nota personale</div>
       <div class="dialog-sub" id="noteDialogTitle"></div>
@@ -809,7 +815,7 @@
   </div>
 
   <!-- DIALOG REWATCH -->
-  <div id="rewatchDialog" class="dialog-overlay hidden" onclick="if(event.target===this) chiudiRewatchDialog()">
+  <div id="rewatchDialog" class="dialog-overlay hidden" onmousedown="if(event.target===this) chiudiRewatchDialog()">
     <div class="dialog" role="dialog" aria-modal="true">
       <div class="dialog-title">🔄 Registra Rewatch</div>
       <div class="dialog-sub" id="rewatchDialogTitle"></div>
@@ -871,6 +877,7 @@
     let rowMap = {};
     let crewIndexGlobal = {};
     let crewListsLocal = {};
+    let extraCache = {};
 
     let activeRoleTab = null;
     let selectedCrew = [];
@@ -885,6 +892,9 @@
     let notaRow = null;
     let rewatchRow = null;
     let toastTimer = null;
+
+    let aiTagsSelezionati = new Set();
+    let aiActiveRoleTab = null;
 
     const CREW_ROLES = ['director', 'writer', 'actors', 'dop', 'music', 'editor', 'fx'];
     const TABS = ['add', 'watchlist', 'diary', 'ai', 'archive', 'config'];
@@ -914,19 +924,15 @@
       $('inputApiUrl').value = store.get('api_url', '');
       $('inputApiToken').value = store.get('api_token', '');
 
-      // Se non è ancora configurata la connessione, apre subito Configurazione
       if (!store.get('api_url') || !store.get('api_token')) {
         naviga('config');
       } else {
         const tab = store.get('tab', 'add');
         if (TABS.includes(tab) && tab !== 'add' && tab !== 'config') naviga(tab);
 
-        // Carica istantaneamente dalla cache locale se disponibile, poi sincronizza in background
         const cachedJson = store.get('db_cache', '');
         if (cachedJson) {
-          try {
-            applicaDatiRicevuti(JSON.parse(cachedJson));
-          } catch (e) {}
+          try { applicaDatiRicevuti(JSON.parse(cachedJson)); } catch (e) {}
         }
         sincronizzaDati(false);
       }
@@ -1002,15 +1008,21 @@
         applicaDatiRicevuti(data);
         if (manuale === true) toast('✓ Catalogo sincronizzato');
       } catch (err) {
-        toast('Errore: ' + err.message);
+        if (manuale === true || !dbLoaded) toast('Errore: ' + err.message);
         if (!dbLoaded) {
-          const retry = `<div class="loader">❌ Impossibile connettersi al server.<br><button class="btn btn-outline sm" style="margin-top:8px;" onclick="sincronizzaDati(true)">Riprova</button></div>`;
+          const retry = `<div class="loader">❌ Impossibile connettersi al server.<br><button class="btn btn-outline sm mt-10" onclick="sincronizzaDati(true)">Riprova</button></div>`;
           $('watchlistBox').innerHTML = retry;
           $('archiveBox').innerHTML = retry;
         }
       } finally {
         if (btn) btn.classList.remove('spinning');
       }
+    }
+
+    function aggiornaDateVisioneFilm(m, strDate) {
+      m.dateVisione = strDate || '';
+      m._watchDates = m.dateVisione ? m.dateVisione.split(',').map(d => d.trim()).filter(Boolean) : [];
+      m._watchCount = m._watchDates.length;
     }
 
     function preparaFilm() {
@@ -1026,6 +1038,7 @@
           misc: norm(`${m.year} ${m.genre} ${m.manualNote}`)
         };
         m._genres = new Set(splitNames(m.genre).map(norm));
+        aggiornaDateVisioneFilm(m, m.dateVisione);
         m._conns = null;
         m._connText = null;
         m._wHay = null;
@@ -1346,12 +1359,9 @@
        ======================================================================== */
     function toggleRoleDrawer(role) {
       const drawer = $('crewDrawer');
-      if (activeRoleTab === role) {
-        activeRoleTab = null;
-        drawer.classList.add('hidden');
-      } else {
-        activeRoleTab = role;
-        drawer.classList.remove('hidden');
+      activeRoleTab = (activeRoleTab === role) ? null : role;
+      drawer.classList.toggle('hidden', !activeRoleTab);
+      if (activeRoleTab) {
         $('crewSearchInput').value = '';
         renderCrewChips();
       }
@@ -1501,7 +1511,7 @@
        CARD COMPATTA
        ======================================================================== */
     function cardFilmSnellaHTML(m, showStatusDot, highlightBorder) {
-      const watchCount = m.dateVisione ? m.dateVisione.split(',').map(d => d.trim()).filter(Boolean).length : 0;
+      const watchCount = m._watchCount || 0;
       const statusDotHtml = showStatusDot
         ? (m.visto ? `<span class="m-status-dot seen">✓${watchCount > 1 ? ` ${watchCount}x` : ''}</span>` : `<span class="m-status-dot todo">📌</span>`)
         : '';
@@ -1548,7 +1558,7 @@
     }
 
     /* ========================================================================
-       SCHEDA DETTAGLIO
+       SCHEDA DETTAGLIO (CON CACHE EXTRA E BOX CREDITI DINAMICI)
        ======================================================================== */
     function nascondiDettaglio() {
       $('detailModal').classList.add('hidden');
@@ -1598,6 +1608,35 @@
         : '');
     }
 
+    function applicaExtraDettaglio(m, extra) {
+      if (!$('detOverview') || !rowMap[m.row]) return;
+      if (!extra || !extra.found) {
+        $('detOverview').innerText = 'Dettagli aggiuntivi TMDB non trovati.';
+        return;
+      }
+      if (extra.poster) $('detPoster').src = extra.poster;
+      if (extra.tagline) $('detTagline').innerText = `"${extra.tagline}"`;
+      $('detOverview').innerText = extra.overview || 'Nessuna trama disponibile.';
+
+      if (extra.tmdbId && !$('detTmdbBtn')) {
+        $('detLinks').insertAdjacentHTML('beforeend', `<a id="detTmdbBtn" class="btn btn-outline sm grow" href="https://www.themoviedb.org/movie/${Number(extra.tmdbId)}" target="_blank" rel="noopener">🎞️ TMDB</a>`);
+      }
+      const kpis = $('detKPIs');
+      if (extra.voteAverage && Number(extra.voteAverage) > 0 && !kpis.querySelector('.rating')) {
+        kpis.insertAdjacentHTML('beforeend', `<span class="kpi-pill rating">⭐ ${esc(extra.voteAverage)}/10 (${esc(extra.voteCount)})</span>`);
+      }
+      if (!m.runtime && extra.runtime) {
+        kpis.insertAdjacentHTML('beforeend', `<span class="kpi-pill">⏱️ ${esc(extra.runtime)} min</span>`);
+      }
+      const fmtUsd = n => n ? '$' + Number(n).toLocaleString('it-IT') : 'N/D';
+      $('detBoxOffice').innerHTML = `<b>Budget:</b> ${fmtUsd(extra.budget)}<br><b>Incassi:</b> ${fmtUsd(extra.revenue)}`;
+
+      if (extra.companies || extra.countries) {
+        $('detProdBox').style.display = 'block';
+        $('detProd').innerText = [extra.countries, extra.companies].filter(Boolean).join(' • ');
+      }
+    }
+
     async function apriDettaglioFilm(row, refresh) {
       const m = rowMap[row];
       if (!m) return;
@@ -1618,29 +1657,29 @@
         ? `<button class="btn btn-outline sm" onclick="promptRewatch(${m.row})">🔄 Rewatch</button><button class="btn btn-outline sm" onclick="cambiaStato(${m.row}, false, this, event)">↩️ Da Vedere</button>`
         : `<button class="btn btn-green sm" onclick="cambiaStato(${m.row}, true, this, event)">✓ Segna Visto</button>`;
 
-      const formatLinks = (str, roleKey) => {
-        if (!str) return '-';
-        return splitNames(str).map(name =>
+      const renderCreditBox = (label, str, roleKey, fullWidth) => {
+        if (!str || !String(str).trim()) return '';
+        const links = splitNames(str).map(name =>
           `<span class="person-link" role="button" tabindex="0" onclick="saltaAdArchivioPersona(${jsArg(roleKey)}, ${jsArg(cleanName(name))})">${esc(name)}</span>`
         ).join(', ');
+        return `<div class="detail-box${fullWidth ? ' full' : ''}"><div class="d-label">${label}</div><div class="d-val">${links}</div></div>`;
       };
 
       const conns = getConnessioniFilm(m);
       const connsDetailHtml = conns.length > 0 ? `
         <div class="detail-box full mb accent">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px;">
+          <div class="d-box-head">
             <div class="d-label cyan" style="margin:0;">🔗 Connessioni nel tuo Catalogo (${conns.length})</div>
-            <button class="btn btn-outline sm" style="min-height:28px; padding:2px 9px; font-size:0.75rem;" onclick="renderConnessioniDettaglio(${m.row}, true)">🎲 Mescola</button>
+            <button class="btn btn-outline xs" onclick="renderConnessioniDettaglio(${m.row}, true)">🎲 Mescola</button>
           </div>
           <div id="detConnsList"></div>
         </div>
       ` : '';
 
       const trailerUrl = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(`${m.title} ${m.year} trailer`);
-      const numVisioni = m.dateVisione ? m.dateVisione.split(',').map(d => d.trim()).filter(Boolean).length : 0;
-      const countVisto = Math.max(1, numVisioni);
+      const countVisto = Math.max(1, m._watchCount || 0);
       const testoBadgeDettaglio = m.visto ? `✓ Visto • ${countVisto} ${countVisto === 1 ? 'volta' : 'volte'}` : '📌 Da Vedere';
-      const hasDistinctOrig = m.original_title && m.original_title.trim().toLowerCase() !== m.title.trim().toLowerCase()
+      const hasDistinctOrig = m.original_title && m.original_title.trim().toLowerCase() !== m.title.trim().toLowerCase();
 
       $('detailBody').innerHTML = `
         <div class="detail-hero"><div class="detail-hero-inner">
@@ -1657,7 +1696,7 @@
           </div>
         </div></div>
         <div class="detail-content">
-          <div class="link-row" id="detLinks" style="flex-wrap:nowrap;">
+          <div class="link-row" id="detLinks">
             <a class="btn btn-outline sm grow" href="${esc(trailerUrl)}" target="_blank" rel="noopener">▶️ Trailer</a>
             <button class="btn btn-outline sm grow" onclick="modificaNotaPrompt(${m.row}, event)">📝 Nota</button>
           </div>
@@ -1665,13 +1704,13 @@
           ${connsDetailHtml}
           <div class="detail-box full mb"><div class="d-label">📖 Sinossi (TMDB)</div><div class="d-val" id="detOverview"><span class="d-muted">⏳ Caricamento trama, voti e incassi...</span></div></div>
           <div class="detail-grid">
-            <div class="detail-box"><div class="d-label">🎬 Regia</div><div class="d-val">${formatLinks(m.director, 'director')}</div></div>
-            <div class="detail-box"><div class="d-label">✍️ Sceneggiatura</div><div class="d-val">${formatLinks(m.writer, 'writer')}</div></div>
-            <div class="detail-box"><div class="d-label">📷 Fotografia</div><div class="d-val">${formatLinks(m.dop, 'dop')}</div></div>
-            <div class="detail-box full"><div class="d-label">🎭 Cast Principale</div><div class="d-val">${formatLinks(m.actors, 'actors')}</div></div>
-            <div class="detail-box full"><div class="d-label">🛠️ Effetti Speciali & Trucco (FX / VFX)</div><div class="d-val">${formatLinks(m.fx, 'fx')}</div></div>
-            <div class="detail-box"><div class="d-label">🎵 Colonna Sonora</div><div class="d-val">${formatLinks(m.music, 'music')}</div></div>
-            <div class="detail-box"><div class="d-label">✂️ Montaggio</div><div class="d-val">${formatLinks(m.editor, 'editor')}</div></div>
+            ${renderCreditBox('🎬 Regia', m.director, 'director', false)}
+            ${renderCreditBox('✍️ Sceneggiatura', m.writer, 'writer', false)}
+            ${renderCreditBox('📷 Fotografia', m.dop, 'dop', false)}
+            ${renderCreditBox('🎭 Cast Principale', m.actors, 'actors', true)}
+            ${renderCreditBox('🛠️ Effetti Speciali & Trucco (FX / VFX)', m.fx, 'fx', true)}
+            ${renderCreditBox('🎵 Colonna Sonora', m.music, 'music', false)}
+            ${renderCreditBox('✂️ Montaggio', m.editor, 'editor', false)}
             <div class="detail-box"><div class="d-label">💰 Budget & Box Office</div><div class="d-val" id="detBoxOffice"><span class="d-muted">...</span></div></div>
             <div class="detail-box full" id="detProdBox" style="display:none;"><div class="d-label">🏛️ Produzione & Paese</div><div class="d-val" id="detProd"></div></div>
           </div>
@@ -1680,34 +1719,15 @@
 
       if (conns.length > 0) renderConnessioniDettaglio(m.row, false);
 
+      if (extraCache[m.row]) {
+        applicaExtraDettaglio(m, extraCache[m.row]);
+        return;
+      }
+
       try {
         const extra = await apiCall('dettagliExtra', { title: m.title, orig: m.original_title, year: m.year, tmdbId: m.tmdbId });
-        if (!$('detOverview') || !rowMap[row]) return;
-        if (!extra || !extra.found) {
-          $('detOverview').innerText = 'Dettagli aggiuntivi TMDB non trovati.';
-          return;
-        }
-        if (extra.poster) $('detPoster').src = extra.poster;
-        if (extra.tagline) $('detTagline').innerText = `"${extra.tagline}"`;
-        $('detOverview').innerText = extra.overview || 'Nessuna trama disponibile.';
-
-        if (extra.tmdbId) {
-          $('detLinks').insertAdjacentHTML('beforeend', `<a class="btn btn-outline sm grow" href="https://www.themoviedb.org/movie/${Number(extra.tmdbId)}" target="_blank" rel="noopener">🎞️ TMDB</a>`);
-        }
-        const kpis = $('detKPIs');
-        if (extra.voteAverage && Number(extra.voteAverage) > 0) {
-          kpis.insertAdjacentHTML('beforeend', `<span class="kpi-pill rating">⭐ ${esc(extra.voteAverage)}/10 (${esc(extra.voteCount)})</span>`);
-        }
-        if (!m.runtime && extra.runtime) {
-          kpis.insertAdjacentHTML('beforeend', `<span class="kpi-pill">⏱️ ${esc(extra.runtime)} min</span>`);
-        }
-        const fmtUsd = n => n ? '$' + Number(n).toLocaleString('it-IT') : 'N/D';
-        $('detBoxOffice').innerHTML = `<b>Budget:</b> ${fmtUsd(extra.budget)}<br><b>Incassi:</b> ${fmtUsd(extra.revenue)}`;
-
-        if (extra.companies || extra.countries) {
-          $('detProdBox').style.display = 'block';
-          $('detProd').innerText = [extra.countries, extra.companies].filter(Boolean).join(' • ');
-        }
+        if (extra) extraCache[m.row] = extra;
+        applicaExtraDettaglio(m, extra);
       } catch (e) {
         const ov = $('detOverview');
         if (ov) ov.innerText = 'Impossibile contattare TMDB.';
@@ -1792,7 +1812,7 @@
 
       try {
         const res = await apiCall('cambiaStato', { row, visto: nuovoVisto });
-        if (res?.dateVisione) m.dateVisione = res.dateVisione;
+        if (res?.dateVisione) aggiornaDateVisioneFilm(m, res.dateVisione);
         rinfrescaDopoCambio(row);
         toast(nuovoVisto ? '✓ Spostato in Visti!' : '📌 Spostato in Da Vedere');
         if (btn?.isConnected && btn.closest('.tmdb-card')) btn.innerText = '✓ Segnato come visto';
@@ -1915,8 +1935,8 @@
         const res = await apiCall('rewatch', { row, dataCustom: dataIT });
         const film = rowMap[row];
         if (film) {
-          film.visto = true;
-          film.dateVisione = res.date;
+          applicaStatoLocale(film, true);
+          aggiornaDateVisioneFilm(film, res.date);
         }
         chiudiRewatchDialog();
         toast('🔄 Rewatch salvato!');
@@ -1948,9 +1968,8 @@
       const anniSet = new Set();
 
       dbFilm.forEach(m => {
-        if (!m.visto || !m.dateVisione) return;
-        const dateList = m.dateVisione.split(',').map(d => d.trim()).filter(Boolean);
-        const dateObjList = dateList.map(d => ({ txt: d, val: parseDateIT(d) })).filter(d => d.val).sort((a, b) => a.val - b.val);
+        if (!m.visto || !m._watchDates || m._watchDates.length === 0) return;
+        const dateObjList = m._watchDates.map(d => ({ txt: d, val: parseDateIT(d) })).filter(d => d.val).sort((a, b) => a.val - b.val);
 
         dateObjList.forEach((d, index) => {
           const year = d.val.getFullYear().toString();
@@ -2065,19 +2084,13 @@
     }
 
     /* ========================================================================
-       CONSIGLI AI
+       CONSIGLI AI & BATCH IMPORT (CON FUNZIONE DI SALVATAGGIO CONDIVISA)
        ======================================================================== */
-    let aiTagsSelezionati = new Set();
-    let aiActiveRoleTab = null;
-
     function toggleAIRoleDrawer(role) {
       const drawer = $('aiCrewDrawer');
-      if (aiActiveRoleTab === role) {
-        aiActiveRoleTab = null;
-        drawer.classList.add('hidden');
-      } else {
-        aiActiveRoleTab = role;
-        drawer.classList.remove('hidden');
+      aiActiveRoleTab = (aiActiveRoleTab === role) ? null : role;
+      drawer.classList.toggle('hidden', !aiActiveRoleTab);
+      if (aiActiveRoleTab) {
         $('aiCrewSearchInput').value = '';
         renderAICrewChips();
       }
@@ -2095,7 +2108,7 @@
 
       const q = norm($('aiCrewSearchInput').value).trim();
       const filtered = q ? list.filter(item => norm(item.name).includes(q)) : list;
-      const shown = filtered.slice(0, 150);
+      const shown = filtered.slice(0, CHIPS_MAX);
 
       const grid = $('aiCrewChipsGrid');
       if (shown.length === 0) {
@@ -2174,32 +2187,6 @@
       `).join('');
     }
 
-    async function aggiungiConsigliSelezionati() {
-      const btn = $('btnAggiungiMultiplo');
-      const checkboxAttive = Array.from(document.querySelectorAll('input[id^="aiCheck_"]:checked'));
-      if (checkboxAttive.length === 0) return toast('⚠️ Seleziona almeno un film.');
-
-      btn.disabled = true;
-      let successi = 0;
-
-      for (let i = 0; i < checkboxAttive.length; i++) {
-        const movieId = Number(checkboxAttive[i].value);
-        btn.innerText = `⏳ Aggiunta (${i + 1}/${checkboxAttive.length})...`;
-        try {
-          await apiCall('aggiungi', { id: movieId, visto: false, nota: '' });
-          successi++;
-          checkboxAttive[i].closest('.movie-card').style.opacity = '0.5';
-          checkboxAttive[i].disabled = true;
-        } catch (e) {
-          toast(`❌ Errore sul film ${i + 1}: ${e.message}`);
-        }
-      }
-
-      btn.innerText = `✓ ${successi} film aggiunti a "Da Vedere"!`;
-      sincronizzaDati(false);
-      setTimeout(() => { btn.disabled = false; btn.innerText = '➕ Aggiungi i Selezionati a "Da Vedere"'; }, 3000);
-    }
-
     function resetTabAI() {
       $('aiPrompt').value = '';
       aiTagsSelezionati.clear();
@@ -2211,9 +2198,6 @@
       renderAIActiveBar();
     }
 
-    /* ========================================================================
-       BATCH IMPORT
-       ======================================================================== */
     function setAddMode(mode) {
       $('modeSingle').classList.toggle('active-visto', mode === 'single');
       $('modeBatch').classList.toggle('active-visto', mode === 'batch');
@@ -2259,25 +2243,22 @@
       }
     }
 
-    async function salvaBatch() {
-      const btn = $('btnSalvaBatch');
-      const customDate = $('batchDate').value.trim();
-      const checkboxAttive = Array.from(document.querySelectorAll('input[id^="batchCheck_"]:checked'));
-
-      if (checkboxAttive.length === 0) return toast('⚠️ Nessun film valido selezionato.');
-      if (customDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(customDate)) return toast('⚠️ Formato data errato. Usa GG/MM/AAAA');
+    async function salvaMultipli(selector, btnId, vistoBool, dataCustom, defaultBtnLabel) {
+      const btn = $(btnId);
+      const checks = Array.from(document.querySelectorAll(selector));
+      if (checks.length === 0) return toast('⚠️ Seleziona almeno un film.');
 
       btn.disabled = true;
       let successi = 0;
 
-      for (let i = 0; i < checkboxAttive.length; i++) {
-        const movieId = Number(checkboxAttive[i].value);
-        btn.innerText = `⏳ Salvataggio (${i + 1}/${checkboxAttive.length})...`;
+      for (let i = 0; i < checks.length; i++) {
+        const movieId = Number(checks[i].value);
+        btn.innerText = `⏳ Salvataggio (${i + 1}/${checks.length})...`;
         try {
-          await apiCall('aggiungi', { id: movieId, visto: true, nota: '', dataCustom });
+          await apiCall('aggiungi', { id: movieId, visto: vistoBool, nota: '', dataCustom: dataCustom || '' });
           successi++;
-          checkboxAttive[i].closest('.movie-card').style.opacity = '0.5';
-          checkboxAttive[i].disabled = true;
+          checks[i].closest('.movie-card').style.opacity = '0.5';
+          checks[i].disabled = true;
         } catch (e) {
           toast(`❌ Errore sul film ${i + 1}: ${e.message}`);
         }
@@ -2285,7 +2266,19 @@
 
       btn.innerText = `✓ ${successi} film salvati!`;
       sincronizzaDati(false);
-      setTimeout(() => { btn.disabled = false; btn.innerText = '💾 Salva Selezionati'; }, 3000);
+      setTimeout(() => { btn.disabled = false; btn.innerText = defaultBtnLabel; }, 3000);
+    }
+
+    function aggiungiConsigliSelezionati() {
+      salvaMultipli('input[id^="aiCheck_"]:checked', 'btnAggiungiMultiplo', false, '', '➕ Aggiungi i Selezionati a "Da Vedere"');
+    }
+
+    function salvaBatch() {
+      const customDate = $('batchDate').value.trim();
+      if (customDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(customDate)) {
+        return toast('⚠️ Formato data errato. Usa GG/MM/AAAA');
+      }
+      salvaMultipli('input[id^="batchCheck_"]:checked', 'btnSalvaBatch', true, customDate, '💾 Salva Selezionati');
     }
   </script>
 </body>
