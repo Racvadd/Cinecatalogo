@@ -1640,8 +1640,7 @@
       const numVisioni = m.dateVisione ? m.dateVisione.split(',').map(d => d.trim()).filter(Boolean).length : 0;
       const countVisto = Math.max(1, numVisioni);
       const testoBadgeDettaglio = m.visto ? `✓ Visto • ${countVisto} ${countVisto === 1 ? 'volta' : 'volte'}` : '📌 Da Vedere';
-      const hasDistinctOrig = m.original_title && m.original_title.trim().toLowerCase() !== m.title.trim().toLowerCase();
-      const datesHtml = (m.visto && m.dateVisione) ? `<div class="watch-dates-line">📅 Visioni: <b>${esc(m.dateVisione)}</b></div>` : '';
+      const hasDistinctOrig = m.original_title && m.original_title.trim().toLowerCase() !== m.title.trim().toLowerCase()
 
       $('detailBody').innerHTML = `
         <div class="detail-hero"><div class="detail-hero-inner">
